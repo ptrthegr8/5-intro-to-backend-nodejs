@@ -18,7 +18,9 @@ const server = http.createServer((req, res) => {
         } else {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/javascript');
-            body = scores;
+            scores.sort((a, b) => (b.score - a.score));
+            threeTopScores = scores.slice(0, 3);
+            body = threeTopScores;
         }
     } else if (req.method === "POST") {
         res.statusCode = 201;
@@ -29,7 +31,7 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify(body));
     // console logs
     console.log(req.url);
-    console.log(req.headers);
+    // console.log(req.headers);
     console.log(req.method);
     console.log(res.statusCode);
     //
